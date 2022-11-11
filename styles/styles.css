@@ -34,7 +34,7 @@ body {
   gap: 5px;
 }
 
-.btn, .extra {
+.btn, .extra, .operator {
   flex-grow: 1;
   width: 25%;
   font-size: x-large;
@@ -62,7 +62,7 @@ body {
   color: black;
 }
 
-.extra {
+.extra, .operator {
   background-color: #F47174;
 }
 
