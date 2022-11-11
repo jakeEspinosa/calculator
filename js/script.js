@@ -45,3 +45,13 @@ numberButtons.forEach((button) => {
     displayValue = displayText.textContent;
   });
 });
+
+const operatorButtons = document.querySelectorAll('.operator');
+
+operatorButtons.forEach((button) => {
+  button.addEventListener('click', () =>{
+    firstNum = parseInt(displayValue);
+    displayText.textContent = `${button.textContent}`;
+    operator = displayText.textContent;
+  });
+});
