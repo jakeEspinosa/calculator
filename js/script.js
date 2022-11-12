@@ -14,6 +14,10 @@ function divide(a, b) {
   return a / b;
 }
 
+function modulus(a, b) {
+  return a % b;
+}
+
 function operate(operator, a, b) {
   switch (true) {
     case (operator === '+'):
@@ -27,6 +31,9 @@ function operate(operator, a, b) {
       break;
     case (operator === '/'):
       return divide(a, b);
+      break;
+    case (operator === '%'):
+      return modulus(a, b);
       break;
   }
 }
