@@ -33,7 +33,7 @@ function operate(operator, a, b) {
 
 let firstNum = 0;
 let secondNum = 0;
-let operator;
+let operator = null;
 let runningTotal;
 
 const displayText = document.querySelector('#display-text');
@@ -43,13 +43,10 @@ numberButtons.forEach((button) => {
   button.addEventListener('click', () => {
     switch (true) {
       case (!(secondNum === 0)):
-        displayText.textContent = '';
-        displayText.textContent += `${button.textContent}`;
+        displayText.textContent = `${button.textContent}`;
         secondNum = displayText.textContent;
-      case (displayText.textContent === '+'):
-      case (displayText.textContent === '-'):
-      case (displayText.textContent === '*'):
-      case (displayText.textContent === '/'):
+        break;
+      case (displayText.textContent === operator):
         displayText.textContent = '';
         displayText.textContent += `${button.textContent}`;
         break;
@@ -63,10 +60,7 @@ const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach((button) => {
   button.addEventListener('click', () =>{
     switch (true) {
-      case (operator === '+'):
-      case (operator === '-'):
-      case (operator === '*'):
-      case (operator === '/'):
+      case (!(operator === null)):
         secondNum = parseInt(displayText.textContent);
         runningTotal = operate(operator, firstNum, secondNum);
         displayText.textContent = `${runningTotal}`;
@@ -92,5 +86,5 @@ clearButton.addEventListener('click', () => {
   displayText.textContent = '';
   firstNum = 0;
   secondNum = 0;
-  operator = '';
+  operator = null;
 } )
