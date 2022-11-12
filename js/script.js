@@ -41,17 +41,33 @@ const displayText = document.querySelector('#display-text');
 const numberButtons = document.querySelectorAll('.btn');
 numberButtons.forEach((button) => {
   button.addEventListener('click', () => {
-    displayText.textContent += `${button.textContent}`;
-    displayValue = displayText.textContent;
+    switch (true) {
+      case (displayText.textContent === '+'):
+      case (displayText.textContent === '-'):
+      case (displayText.textContent === '*'):
+      case (displayText.textContent === '/'):
+        displayText.textContent = '';
+        displayText.textContent += `${button.textContent}`;
+        displayValue = displayText.textContent;
+        break;
+    default:
+        displayText.textContent += `${button.textContent}`;
+        displayValue = displayText.textContent;
+    }
   });
 });
 
 const operatorButtons = document.querySelectorAll('.operator');
-
 operatorButtons.forEach((button) => {
   button.addEventListener('click', () =>{
     firstNum = parseInt(displayValue);
     displayText.textContent = `${button.textContent}`;
     operator = displayText.textContent;
   });
+});
+
+const equalButton = document.querySelector('#btn-equals');
+equalButton.addEventListener('click', () => {
+  secondNum = parseInt(displayValue);
+  displayText.textContent = operate(operator, firstNum, secondNum);
 });
