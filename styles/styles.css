@@ -52,9 +52,8 @@ body {
 }
 
 #display-text {
-  font-size: 45px;
+  font-size: 15vh;
   padding-right: 1vw;
-  padding-left: 1vw;
 }
 
 #spacer {
