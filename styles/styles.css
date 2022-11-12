@@ -26,7 +26,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 5px;
-
 }
 
 .row {
@@ -64,8 +63,10 @@ body {
 
 .extra, .operator {
   background-color: #F47174;
+  border-radius: 6px;
 }
 
 .btn {
   background-color: #EEEE9B;
+  border-radius: 6px;
 }
