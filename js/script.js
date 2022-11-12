@@ -33,8 +33,7 @@ function operate(operator, a, b) {
 
 let firstNum = 0;
 let secondNum = 0;
-let operator;
-let displayValue = 0;
+let operator = null;
 let runningTotal;
 
 const displayText = document.querySelector('#display-text');
@@ -44,20 +43,15 @@ numberButtons.forEach((button) => {
   button.addEventListener('click', () => {
     switch (true) {
       case (!(secondNum === 0)):
-        displayText.textContent = '';
-        displayText.textContent += `${button.textContent}`;
+        displayText.textContent = `${button.textContent}`;
         secondNum = displayText.textContent;
-      case (displayText.textContent === '+'):
-      case (displayText.textContent === '-'):
-      case (displayText.textContent === '*'):
-      case (displayText.textContent === '/'):
+        break;
+      case (!(operator === null)):
         displayText.textContent = '';
         displayText.textContent += `${button.textContent}`;
-        displayValue = displayText.textContent;
         break;
     default:
         displayText.textContent += `${button.textContent}`;
-        displayValue = displayText.textContent;
     }
   });
 });
@@ -66,18 +60,18 @@ const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach((button) => {
   button.addEventListener('click', () =>{
     switch (true) {
-      case (operator === '+'):
-      case (operator === '-'):
-      case (operator === '*'):
-      case (operator === '/'):
-        secondNum = parseInt(displayValue);
+      case (!(operator === null)):
+        displayText.textContent = 'Need second number';
+        break;
+      case (!(operator === null) && !(secondNum === 0)):
+        secondNum = parseInt(displayText.textContent);
         runningTotal = operate(operator, firstNum, secondNum);
-        displayText.textContent = `${runningTotal}`;
+        displayText.textContent = runningTotal;
         firstNum = runningTotal;
         operator = button.textContent;
         break;
       default:
-        firstNum = parseInt(displayValue);
+        firstNum = parseInt(displayText.textContent);
         displayText.textContent = `${button.textContent}`;
         operator = displayText.textContent;
     }
@@ -86,9 +80,8 @@ operatorButtons.forEach((button) => {
 
 const equalButton = document.querySelector('#btn-equals');
 equalButton.addEventListener('click', () => {
-  secondNum = parseInt(displayValue);
-  displayValue = operate(operator, firstNum, secondNum);
-  displayText.textContent = displayValue;
+  secondNum = parseInt(displayText.textContent);
+  displayText.textContent = operate(operator, firstNum, secondNum);
 });
 
 const clearButton = document.querySelector('#btn-c');
@@ -96,6 +89,5 @@ clearButton.addEventListener('click', () => {
   displayText.textContent = '';
   firstNum = 0;
   secondNum = 0;
-  operator = '';
-  displayValue = 0;
+  operator = null;
 } )
