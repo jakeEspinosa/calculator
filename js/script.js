@@ -85,6 +85,10 @@ operatorButtons.forEach((button) => {
 
 const equalButton = document.querySelector('#btn-equals');
 equalButton.addEventListener('click', () => {
+  if (secondNum === 0 && operator === '/') {
+    displayText.textContent = 'Can\'t divide by zero';
+    return;
+  }
   secondNum = parseInt(displayText.textContent);
   displayText.textContent = operate(operator, firstNum, secondNum);
 });
