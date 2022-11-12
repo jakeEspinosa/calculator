@@ -49,6 +49,8 @@ const numberButtons = document.querySelectorAll('.btn');
 numberButtons.forEach((button) => {
   button.addEventListener('click', () => {
     switch (true) {
+      case (displayText.textContent.length > 15):
+        return;
       case (secondNum !== 0):
         displayText.textContent = `${button.textContent}`;
         secondNum = displayText.textContent;
