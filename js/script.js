@@ -35,6 +35,7 @@ let firstNum = 0;
 let secondNum = 0;
 let operator;
 let displayValue = 0;
+let runningTotal;
 
 const displayText = document.querySelector('#display-text');
 
@@ -42,6 +43,10 @@ const numberButtons = document.querySelectorAll('.btn');
 numberButtons.forEach((button) => {
   button.addEventListener('click', () => {
     switch (true) {
+      case (!(secondNum === 0)):
+        displayText.textContent = '';
+        displayText.textContent += `${button.textContent}`;
+        secondNum = displayText.textContent;
       case (displayText.textContent === '+'):
       case (displayText.textContent === '-'):
       case (displayText.textContent === '*'):
@@ -60,14 +65,37 @@ numberButtons.forEach((button) => {
 const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach((button) => {
   button.addEventListener('click', () =>{
-    firstNum = parseInt(displayValue);
-    displayText.textContent = `${button.textContent}`;
-    operator = displayText.textContent;
+    switch (true) {
+      case (operator === '+'):
+      case (operator === '-'):
+      case (operator === '*'):
+      case (operator === '/'):
+        secondNum = parseInt(displayValue);
+        runningTotal = operate(operator, firstNum, secondNum);
+        displayText.textContent = `${runningTotal}`;
+        firstNum = runningTotal;
+        operator = button.textContent;
+        break;
+      default:
+        firstNum = parseInt(displayValue);
+        displayText.textContent = `${button.textContent}`;
+        operator = displayText.textContent;
+    }
   });
 });
 
 const equalButton = document.querySelector('#btn-equals');
 equalButton.addEventListener('click', () => {
   secondNum = parseInt(displayValue);
-  displayText.textContent = operate(operator, firstNum, secondNum);
+  displayValue = operate(operator, firstNum, secondNum);
+  displayText.textContent = displayValue;
 });
+
+const clearButton = document.querySelector('#btn-c');
+clearButton.addEventListener('click', () => {
+  displayText.textContent = '';
+  firstNum = 0;
+  secondNum = 0;
+  operator = '';
+  displayValue = 0;
+} )
