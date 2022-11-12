@@ -34,7 +34,7 @@ function operate(operator, a, b) {
 let firstNum = 0;
 let secondNum = 0;
 let operator = null;
-let runningTotal;
+let runningTotal = NaN;
 
 const displayText = document.querySelector('#display-text');
 
@@ -42,7 +42,7 @@ const numberButtons = document.querySelectorAll('.btn');
 numberButtons.forEach((button) => {
   button.addEventListener('click', () => {
     switch (true) {
-      case (!(secondNum === 0)):
+      case (secondNum !== 0):
         displayText.textContent = `${button.textContent}`;
         secondNum = displayText.textContent;
         break;
@@ -62,8 +62,16 @@ operatorButtons.forEach((button) => {
     switch (true) {
       case (!(operator === null)):
         secondNum = parseInt(displayText.textContent);
+        if (isNaN(secondNum)) {
+          secondNum = 0;
+          firstNum = 0;
+        }
         runningTotal = operate(operator, firstNum, secondNum);
-        displayText.textContent = `${runningTotal}`;
+        if (runningTotal === 0) {
+          displayText.textContent = '';
+        } else {
+          displayText.textContent = `${runningTotal}`;
+        }
         firstNum = runningTotal;
         operator = button.textContent;
         break;
