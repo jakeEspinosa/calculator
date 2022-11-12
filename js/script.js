@@ -94,15 +94,19 @@ const equalButton = document.querySelector('#btn-equals');
 
 equalButton.addEventListener('click', () => {
   secondNum = parseInt(displayText.textContent);
-  if (secondNum === 0 && operator === '/') {
-    displayText.textContent = 'Can\'t divide by zero';
-    return;
+  switch (true) {
+    case ((isNaN(firstNum) || isNaN(secondNum))):
+      return;
+    case (secondNum === 0 && operator === '/'):
+      displayText.textContent = 'Can\'t divide by zero';
+      return;
+    default:
+      result = operate(operator, firstNum, secondNum);
+      if (result.toString().length > 15) {
+        result = Math.round(result * 10000) / 10000;
+      }
+      displayText.textContent = result;
   }
-  result = operate(operator, firstNum, secondNum);
-  if (result.toString().length > 15) {
-    result = Math.round(result * 10000) / 10000;
-  }
-  displayText.textContent = result;
 });
 
 const clearButton = document.querySelector('#btn-c');
@@ -111,4 +115,10 @@ clearButton.addEventListener('click', () => {
   firstNum = 0;
   secondNum = 0;
   operator = null;
-} )
+})
+
+const delButton = document.querySelector('#btn-del');
+delButton.addEventListener('click', () => {
+  display = displayText.textContent.slice(0, -1);
+  displayText.textContent = display;
+})
