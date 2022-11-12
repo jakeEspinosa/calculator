@@ -80,17 +80,22 @@ operatorButtons.forEach((button) => {
         displayText.textContent = `${button.textContent}`;
         operator = displayText.textContent;
     }
-  });
+  }); 
 });
 
 const equalButton = document.querySelector('#btn-equals');
+
 equalButton.addEventListener('click', () => {
+  secondNum = parseInt(displayText.textContent);
   if (secondNum === 0 && operator === '/') {
     displayText.textContent = 'Can\'t divide by zero';
     return;
   }
-  secondNum = parseInt(displayText.textContent);
-  displayText.textContent = operate(operator, firstNum, secondNum);
+  result = operate(operator, firstNum, secondNum);
+  if (result.toString().length > 15) {
+    result = Math.round(result * 10000) / 10000;
+  }
+  displayText.textContent = result;
 });
 
 const clearButton = document.querySelector('#btn-c');
