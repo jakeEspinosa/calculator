@@ -96,7 +96,7 @@ operatorButtons.forEach((button) => {
         }
         runningTotal = operate(operator, firstNum, secondNum);
         if (runningTotal === 0) {
-          displayText.textContent = '';
+          displayText.textContent = 'Only use one operator';
         } else {
           displayText.textContent = `${runningTotal}`;
         }
