@@ -170,10 +170,12 @@ dotButton.addEventListener('click', () => {
 })
 
 signButton.addEventListener('click', () => {
-/* Does not make zero negative */
+/* Does not make zero negative and can handle an operator being
+   made negative. */
   switch (true) {
     case (displayText.textContent === ''):
     case (displayText.textContent === 0):
+    case (displayText.textContent === operator):
       return;
     default:
       numberToSwitch = displayText.textContent;
