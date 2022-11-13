@@ -58,6 +58,7 @@ const equalButton = document.querySelector('#btn-equals');
 const clearButton = document.querySelector('#btn-c');
 const delButton = document.querySelector('#btn-del');
 const dotButton = document.querySelector('#btn-dot');
+const signButton = document.querySelector('#btn-sign');
 // End global variable declaration.
 
 numberButtons.forEach((button) => {
@@ -124,6 +125,9 @@ equalButton.addEventListener('click', () => {
       return;
     default: 
     result = operate(operator, firstNum, secondNum);
+    if (result === undefined) {
+      return;
+    }
     if ((result.toString().length > 15) && (result % 1 !== 0)) {
       result = Math.round(result * 10000) / 10000;
       displayText.textContent = result;
@@ -149,6 +153,7 @@ delButton.addEventListener('click', () => {
 });
 
 dotButton.addEventListener('click', () => {
+/* Only allows one decimal place to be added.*/
   if (displayText.textContent.includes('.')) {
     return;
   } else if (displayText.textContent === operator) {
@@ -158,3 +163,18 @@ dotButton.addEventListener('click', () => {
     displayText.textContent += '.';
   }
 })
+
+signButton.addEventListener('click', () => {
+  switch (true) {
+    case (displayText.textContent === ''):
+    case (displayText.textContent === 0):
+      return;
+    default:
+      numberToSwitch = displayText.textContent;
+      if (numberToSwitch > 0) {
+        displayText.textContent = -Math.abs(numberToSwitch);
+      } else {
+        displayText.textContent = Math.abs(numberToSwitch);
+      }
+  }
+});
