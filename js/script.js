@@ -57,6 +57,7 @@ const numberButtons = document.querySelectorAll('.btn');
 const equalButton = document.querySelector('#btn-equals');
 const clearButton = document.querySelector('#btn-c');
 const delButton = document.querySelector('#btn-del');
+const dotButton = document.querySelector('#btn-dot');
 // End global variable declaration.
 
 numberButtons.forEach((button) => {
@@ -88,7 +89,7 @@ operatorButtons.forEach((button) => {
   button.addEventListener('click', () =>{
     switch (true) {
       case (!(operator === null)):
-        secondNum = parseInt(displayText.textContent);
+        secondNum = parseFloat(displayText.textContent);
         if (isNaN(secondNum)) {
           secondNum = 0;
           firstNum = 0;
@@ -103,7 +104,7 @@ operatorButtons.forEach((button) => {
         operator = button.textContent;
         break;
       default:
-        firstNum = parseInt(displayText.textContent);
+        firstNum = parseFloat(displayText.textContent);
         displayText.textContent = `${button.textContent}`;
         operator = displayText.textContent;
     }
@@ -114,7 +115,7 @@ equalButton.addEventListener('click', () => {
 /* Accounts for regular use, entering an operator and then pressing =,
    entering nothing and then pressing =, if the result is longer than
    15 digits, and rounding decimals that are longer than 15 digits. */
-  secondNum = parseInt(displayText.textContent);
+  secondNum = parseFloat(displayText.textContent);
   switch (true) {
     case ((isNaN(firstNum) || isNaN(secondNum))):
       return;
@@ -146,3 +147,14 @@ delButton.addEventListener('click', () => {
   display = displayText.textContent.slice(0, -1);
   displayText.textContent = display;
 });
+
+dotButton.addEventListener('click', () => {
+  if (displayText.textContent.includes('.')) {
+    return;
+  } else if (displayText.textContent === operator) {
+    displayText.textContent = '';
+    displayText.textContent += '.';
+  } else {
+    displayText.textContent += '.';
+  }
+})
