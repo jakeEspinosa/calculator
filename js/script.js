@@ -148,8 +148,13 @@ clearButton.addEventListener('click', () => {
 });
 
 delButton.addEventListener('click', () => {
-  display = displayText.textContent.slice(0, -1);
-  displayText.textContent = display;
+  if (parseFloat(displayText.textContent) < 0) {
+    display = displayText.textContent.slice(1);
+    displayText.textContent = display;
+  } else {
+    display = displayText.textContent.slice(0, -1);
+    displayText.textContent = display;
+  }
 });
 
 dotButton.addEventListener('click', () => {
@@ -165,6 +170,7 @@ dotButton.addEventListener('click', () => {
 })
 
 signButton.addEventListener('click', () => {
+/* Does not make zero negative */
   switch (true) {
     case (displayText.textContent === ''):
     case (displayText.textContent === 0):
