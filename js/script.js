@@ -1,3 +1,9 @@
+/* 
+Author: Jake Espinosa
+Contact: jacob.sa.espinosa@gmail.com
+*/
+
+// Begin function defintions.
 function add(a, b) {
   return a + b;
 }
@@ -37,16 +43,25 @@ function operate(operator, a, b) {
       break;
   }
 }
+// End function definitions.
 
+// Begin global variable declaration.
 let firstNum = 0;
 let secondNum = 0;
 let operator = null;
 let runningTotal = NaN;
 
 const displayText = document.querySelector('#display-text');
-
+const operatorButtons = document.querySelectorAll('.operator');
 const numberButtons = document.querySelectorAll('.btn');
+const equalButton = document.querySelector('#btn-equals');
+const clearButton = document.querySelector('#btn-c');
+const delButton = document.querySelector('#btn-del');
+// End global variable declaration.
+
 numberButtons.forEach((button) => {
+/* Accounts for entering the first number and all subsequent numbers,
+   and for the number limit of 15 digits. */
   button.addEventListener('click', () => {
     switch (true) {
       case (displayText.textContent.length > 15):
@@ -65,8 +80,11 @@ numberButtons.forEach((button) => {
   });
 });
 
-const operatorButtons = document.querySelectorAll('.operator');
+
 operatorButtons.forEach((button) => {
+/* Accounts for pressing an operator with no number entered (once or
+  repeatedly, performing a series of operations (one at a time), and
+  for normal use. */
   button.addEventListener('click', () =>{
     switch (true) {
       case (!(operator === null)):
@@ -92,9 +110,10 @@ operatorButtons.forEach((button) => {
   }); 
 });
 
-const equalButton = document.querySelector('#btn-equals');
-
 equalButton.addEventListener('click', () => {
+/* Accounts for regular use, entering an operator and then pressing =,
+   entering nothing and then pressing =, if the result is longer than
+   15 digits, and rounding decimals that are longer than 15 digits. */
   secondNum = parseInt(displayText.textContent);
   switch (true) {
     case ((isNaN(firstNum) || isNaN(secondNum))):
@@ -102,25 +121,28 @@ equalButton.addEventListener('click', () => {
     case (secondNum === 0 && operator === '/'):
       displayText.textContent = 'Can\'t divide by zero';
       return;
-    default:
-      result = operate(operator, firstNum, secondNum);
-      if (result.toString().length > 15) {
-        result = Math.round(result * 10000) / 10000;
-      }
+    default: 
+    result = operate(operator, firstNum, secondNum);
+    if ((result.toString().length > 15) && (result % 1 !== 0)) {
+      result = Math.round(result * 10000) / 10000;
       displayText.textContent = result;
+    } else if ((result.toString().length > 15) && (result % 1 === 0)) {
+      displayText.textContent = 'Error: please use smaller numbers';
+    } else {
+      result = operate(operator, firstNum, secondNum);
+      displayText.textContent = result;
+    }
   }
 });
 
-const clearButton = document.querySelector('#btn-c');
 clearButton.addEventListener('click', () => {
   displayText.textContent = '';
   firstNum = 0;
   secondNum = 0;
   operator = null;
-})
+});
 
-const delButton = document.querySelector('#btn-del');
 delButton.addEventListener('click', () => {
   display = displayText.textContent.slice(0, -1);
   displayText.textContent = display;
-})
+});
