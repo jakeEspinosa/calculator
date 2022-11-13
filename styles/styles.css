@@ -72,3 +72,15 @@ body {
   background-color: #EEEE9B;
   border-radius: 6px;
 }
+
+#main-container {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  justify-content: center;
+  align-items: center;
+}
+
+#footer {
+  font-family: Arial, Helvetica, sans-serif;
+}
